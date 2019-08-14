@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <adminhtml_webwinkelreviews_index>
+        <reference name="head">
+            <action method="addCss"><name>magmodules/webwinkelconnect/grid.css</name></action>
+        </reference>
+        <reference name="content">
+            <block type="webwinkelconnect/adminhtml_webwinkelreviews" name="webwinkelconnect" />
+        </reference>
+    </adminhtml_webwinkelreviews_index>
+    <adminhtml_webwinkellog_index>
+        <reference name="content">
+            <block type="webwinkelconnect/adminhtml_webwinkellog" name="webwinkellog" />
+        </reference>
+    </adminhtml_webwinkellog_index>
+</layout>

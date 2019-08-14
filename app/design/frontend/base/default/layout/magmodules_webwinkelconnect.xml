@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">	
+	<default>
+		<reference name="head">
+			<action method="addCss"><stylesheet>magmodules/webwinkelconnect/sidebar.css</stylesheet></action>
+			<action method="addCss"><stylesheet>magmodules/webwinkelconnect/richsnippets.css</stylesheet></action>			
+		</reference>
+		<reference name="left">
+			<block type="webwinkelconnect/sidebar" name="left.webwinkelconnect" template="magmodules/webwinkelconnect/sidebar/left.phtml" />
+		</reference>		
+		<reference name="right">
+			<block type="webwinkelconnect/sidebar" name="right.webwinkelconnect" template="magmodules/webwinkelconnect/sidebar/right.phtml" />
+		</reference>
+        <reference name="before_body_end">
+	        <block type="core/template" name="webwinkelconnect_js_sidebar" as="webwinkelconnect_js_sidebar" template="magmodules/webwinkelconnect/sidebar/js-sidebar.phtml" />
+        </reference>				
+	</default>
+	<webwinkelconnect_index_index>
+		<reference name="root">
+			<action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+		</reference>
+		<reference name="head">
+			<action method="addCss"><stylesheet>magmodules/webwinkelconnect/style.css</stylesheet> </action>
+		</reference>
+		<reference name="content">
+			<block type="webwinkelconnect/reviews" name="webwinkelconnect.index" template="magmodules/webwinkelconnect/index.phtml" />
+		</reference>
+		<reference name="left">
+			<remove name="left.webwinkelconnect" />
+		</reference>		
+		<reference name="right">
+			<remove name="right.webwinkelconnect" />
+		</reference>
+	</webwinkelconnect_index_index>	
+</layout> 
