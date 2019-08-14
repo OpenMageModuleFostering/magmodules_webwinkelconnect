@@ -112,7 +112,7 @@ class Magmodules_Webwinkelconnect_Model_Observer {
 			if($order->getStatus() == Mage::getStoreConfig('webwinkelconnect/invitation/status', $order->getStoreId())) {
 				if(Mage::getStoreConfig('webwinkelconnect/invitation/backlog', $order->getStoreId()) > 0) {
 					$date_diff = floor(time() - strtotime($order->getCreatedAt()))/(60*60*24);
-					if($date_diff < Mage::getStoreConfig('webwinkelconnect/invitation/backlog', $order->getStoreId())) }
+					if($date_diff < Mage::getStoreConfig('webwinkelconnect/invitation/backlog', $order->getStoreId())) {
 						$value = Mage::getModel('webwinkelconnect/api')->sendInvitation($order);
 					}
 				} else {
