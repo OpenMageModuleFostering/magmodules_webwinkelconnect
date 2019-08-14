@@ -91,35 +91,35 @@ class Magmodules_Webwinkelconnect_Model_Observer {
     {
 		$shipment = $observer->getEvent()->getShipment();
 		$order    = $shipment->getOrder();
-		if((Mage::getStoreConfig('webwinkelconnect/invitation/enabled', $order->getStoreId())) && (Mage::getStoreConfig('webwinkelconnect/general/api_key', $order->getStoreId()))):	
-			if($order->getStatus() == Mage::getStoreConfig('webwinkelconnect/invitation/status', $order->getStoreId())):
-				if(Mage::getStoreConfig('webwinkelconnect/invitation/backlog', $order->getStoreId()) > 0):
+		if((Mage::getStoreConfig('webwinkelconnect/invitation/enabled', $order->getStoreId())) && (Mage::getStoreConfig('webwinkelconnect/general/api_key', $order->getStoreId()))) {
+			if($order->getStatus() == Mage::getStoreConfig('webwinkelconnect/invitation/status', $order->getStoreId())) {
+				if(Mage::getStoreConfig('webwinkelconnect/invitation/backlog', $order->getStoreId()) > 0) {
 					$date_diff = floor(time() - strtotime($order->getCreatedAt()))/(60*60*24);
-					if($date_diff < Mage::getStoreConfig('webwinkelconnect/invitation/backlog', $order->getStoreId())):
+					if($date_diff < Mage::getStoreConfig('webwinkelconnect/invitation/backlog', $order->getStoreId())) {
 						Mage::getModel('webwinkelconnect/api')->sendInvitation($order);
-					endif;	
-				else:
+					}
+				} else {
 					Mage::getModel('webwinkelconnect/api')->sendInvitation($order);				
-				endif;
-			endif;	
-		endif;			
+				}
+			}
+		}
     }
 
     public function processInvitationcall($observer) 
     {
         $order = $observer->getEvent()->getOrder();
-		if((Mage::getStoreConfig('webwinkelconnect/invitation/enabled', $order->getStoreId())) && (Mage::getStoreConfig('webwinkelconnect/general/api_key', $order->getStoreId()))):	
-			if($order->getStatus() == Mage::getStoreConfig('webwinkelconnect/invitation/status', $order->getStoreId())):
-				if(Mage::getStoreConfig('webwinkelconnect/invitation/backlog', $order->getStoreId()) > 0):
+		if((Mage::getStoreConfig('webwinkelconnect/invitation/enabled', $order->getStoreId())) && (Mage::getStoreConfig('webwinkelconnect/general/api_key', $order->getStoreId()))) {
+			if($order->getStatus() == Mage::getStoreConfig('webwinkelconnect/invitation/status', $order->getStoreId())) {
+				if(Mage::getStoreConfig('webwinkelconnect/invitation/backlog', $order->getStoreId()) > 0) {
 					$date_diff = floor(time() - strtotime($order->getCreatedAt()))/(60*60*24);
-					if($date_diff < Mage::getStoreConfig('webwinkelconnect/invitation/backlog', $order->getStoreId())):
+					if($date_diff < Mage::getStoreConfig('webwinkelconnect/invitation/backlog', $order->getStoreId())) }
 						$value = Mage::getModel('webwinkelconnect/api')->sendInvitation($order);
-					endif;	
-				else:
+					}
+				} else {
 					Mage::getModel('webwinkelconnect/api')->sendInvitation($order);				
-				endif;
-			endif;	
-		endif;			
+				}
+			}
+		}
     }    
     
 }
