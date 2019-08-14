@@ -66,10 +66,15 @@ class Magmodules_Webwinkelconnect_Model_Api extends Mage_Core_Model_Abstract {
 		$api_key = trim(Mage::getStoreConfig('webwinkelconnect/general/api_key', $order->getStoreId()));
 		$delay = trim(Mage::getStoreConfig('webwinkelconnect/invitation/delay', $order->getStoreId()));
 		$language = Mage::getStoreConfig('webwinkelconnect/invitation/language', $order->getStoreId());
+		$resend_double = Mage::getStoreConfig('webwinkelconnect/invitation/resend_double', $order->getStoreId());
+
 		$email = $order->getCustomerEmail();
 		$customer_name = $order->getCustomerName();
 		
 		$url = 'https://www.webwinkelkeur.nl/api.php?id=' . $api_id . '&password=' . $api_key . '&email=' . urlencode($email) . '&order=' . $order_id . '&delay=' . $delay . '&client=magento&customername=' . urlencode($customer_name);
+		if(!$resend_double) {
+			$url = $url . '&noremail=1';
+		}
 
 		if(!empty($language)) {
 			if($language == 'cus') {

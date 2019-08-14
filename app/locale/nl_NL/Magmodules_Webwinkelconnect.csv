@@ -146,3 +146,6 @@
 "Invitation to write review","Vragen om beoordeling"
 "WebwinkelKeur Javascript integration","WebwinkelKeur Javascript integratie"
 "Language of the review invitation email, leave empty for default language. Option only available for member with an EU membership","Taal van de uitnodigingsemail. Laat leeg om de standaardtaal te gebruiken. Optie alleen beschikbaar binnen het EU pakket."
+"Resend if Double","Stuur opnieuw indien dubbel"
+"If set to ""Yes"", customers will get new review reminders for every new order.","Indien ""Ja"" ontvangen de klanten een nieuwe uitnodiging na elke bestelling."
+"If set to "Yes", customers will get new review reminders for every new order.","Indien "Ja" ontvangen de klanten een nieuwe uitnodiging na elke bestelling."
