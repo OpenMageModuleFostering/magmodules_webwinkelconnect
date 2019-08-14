@@ -1,0 +1,47 @@
+<?php
+/**
+ * Magmodules.eu
+ * http://www.magmodules.eu
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to info@magmodules.eu so we can send you a copy immediately.
+ *
+ * @category    Magmodules
+ * @package     Magmodules_Webwinkelkeur
+ * @author      Magmodules <info@magmodules.eu)
+ * @copyright   Copyright (c) 2014 (http://www.magmodules.eu)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+ $webwinkelkeur_id 	= (int)Mage::getStoreConfig('webwinkelkeur/general/api_id');
+ $enabled 			= Mage::getStoreConfig('webwinkelkeur/general/enabled');
+ $js_enabled		=Mage::getStoreConfig('webwinkelkeur/frontend/enabled');
+ $sidebar			= (Mage::getStoreConfig('webwinkelkeur/frontend/sidebar') ? 'true' : 'false');
+ $tooltip			= (Mage::getStoreConfig('webwinkelkeur/frontend/tooltip') ? 'true' : 'false');
+ $sidebar_position	= Mage::getStoreConfig('webwinkelkeur/frontend/sidebar_position');
+ $sidebar_top		= Mage::getStoreConfig('webwinkelkeur/frontend/sidebar_height');
+?>
+<?php if($webwinkelkeur_id && $js_enabled): ?>
+	<script type="text/javascript">
+	(function() {
+		_webwinkelkeur_id = <?php echo $webwinkelkeur_id; ?>;
+		_webwinkelkeur_sidebar = <?php echo $sidebar; ?>;
+		_webwinkelkeur_tooltip = <?php echo $tooltip; ?>;
+		_webwinkelkeur_sidebar_position = '<?php echo $sidebar_position; ?>';
+		_webwinkelkeur_sidebar_top = '<?php echo $sidebar_top; ?>';
+		var js = document.createElement("script");
+		js.type = "text/javascript";
+		js.async = true;
+		js.src = "//www.webwinkelkeur.nl/js/sidebar.js";
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(js, s);
+	})();
+	</script>
+<?php endif; ?>	

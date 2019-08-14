@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">	
+	<default>
+		<reference name="head">
+			<action method="addCss"><stylesheet>magmodules/webwinkelkeur/sidebar.css</stylesheet></action>
+		</reference>
+		<reference name="left">
+			<block type="webwinkelkeur/sidebar" name="left.webwinkelkeur" template="magmodules/webwinkelkeur/sidebar/left.phtml" />
+		</reference>		
+		<reference name="right">
+			<block type="webwinkelkeur/sidebar" name="right.webwinkelkeur" template="magmodules/webwinkelkeur/sidebar/right.phtml" />
+		</reference>
+        <reference name="before_body_end">
+	        <block type="core/template" name="webwinkelkeur_js_sidebar" as="webwinkelkeur_js_sidebar" template="magmodules/webwinkelkeur/sidebar/js-sidebar.phtml" />
+        </reference>				
+	</default>
+	<webwinkelkeur_index_index>
+		<reference name="root">
+			<action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+		</reference>
+		<reference name="head">
+			<action method="addCss"><stylesheet>magmodules/webwinkelkeur/style.css</stylesheet> </action>
+		</reference>
+		<reference name="content">
+			<block type="webwinkelkeur/reviews" name="webwinkelkeur.index" template="magmodules/webwinkelkeur/index.phtml" />
+		</reference>
+		<reference name="left">
+			<remove name="left.webwinkelkeur" />
+		</reference>		
+		<reference name="right">
+			<remove name="right.webwinkelkeur" />
+		</reference>
+	</webwinkelkeur_index_index>	
+	<cms_index_index>
+		<reference name="head">
+			<action method="addCss"><stylesheet>magmodules/webwinkelkeur/richsnippters.css</stylesheet></action>
+		</reference>
+	</cms_index_index>	
+</layout> 

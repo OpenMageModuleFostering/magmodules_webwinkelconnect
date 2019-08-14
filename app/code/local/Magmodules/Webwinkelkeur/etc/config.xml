@@ -1,0 +1,229 @@
+<?xml version="1.0"?>
+<!-- 
+<?php 
+/**
+ * Magmodules.eu - http://www.magmodules.eu
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to info@magmodules.eu so we can send you a copy immediately.
+ *
+ * @category    Magmodules
+ * @package     Magmodules_Webwinkelkeur
+ * @author      Magmodules <info@magmodules.eu)
+ * @copyright   Copyright (c) 2014 (http://www.magmodules.eu)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+ -->
+<config>
+	<modules>
+		<Magmodules_Webwinkelkeur>
+			<version>0.9.0</version>
+		</Magmodules_Webwinkelkeur>
+	</modules>
+	<global>
+        <models>
+            <webwinkelkeur>
+                <class>Magmodules_Webwinkelkeur_Model</class>
+                <resourceModel>webwinkelkeur_mysql4</resourceModel>
+            </webwinkelkeur>
+            <webwinkelkeur_mysql4>
+                <class>Magmodules_Webwinkelkeur_Model_Mysql4</class>
+                <entities>
+                    <reviews>
+                        <table>webwinkelkeur_reviews</table>
+                    </reviews>                                     
+                    <stats>
+                        <table>webwinkelkeur_stats</table>
+                    </stats>                                     
+                    <log>
+                        <table>webwinkelkeur_log</table>
+                    </log>                                     
+                </entities>              
+            </webwinkelkeur_mysql4>
+        </models>
+		<resources>
+            <webwinkelkeur_setup>
+                <setup>
+                    <module>Magmodules_Webwinkelkeur</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </webwinkelkeur_setup>
+            <webwinkelkeur_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </webwinkelkeur_write>
+            <webwinkelkeur_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </webwinkelkeur_read>
+        </resources>        
+		<helpers>
+			<webwinkelkeur>
+				<class>Magmodules_Webwinkelkeur_Helper</class>
+			</webwinkelkeur>
+		</helpers>
+		<blocks>
+			<webwinkelkeur>
+				<class>Magmodules_Webwinkelkeur_Block</class>
+			</webwinkelkeur>
+		</blocks>
+        <events>       
+            <sales_order_shipment_save_after>
+                <observers>
+                    <connector>
+                        <type>singleton</type>
+                        <class>webwinkelkeur/observer</class>
+                        <method>processInvitationcallAfterShipment</method>
+                    </connector>
+                </observers>
+            </sales_order_shipment_save_after>
+            <sales_order_save_commit_after>
+                <observers>
+                    <connector>
+                        <type>singleton</type>
+                        <class>webwinkelkeur/observer</class>
+                        <method>processInvitationcall</method>
+                    </connector>
+                </observers>
+            </sales_order_save_commit_after>
+        </events>				
+	</global>
+	<frontend>
+		<routers>
+            <webwinkelkeur>
+                <use>standard</use>
+                <args>
+                    <module>Magmodules_Webwinkelkeur</module>
+                    <frontName>webwinkelkeur</frontName>
+                </args>
+            </webwinkelkeur>           
+        </routers>
+		<layout>
+			<updates>
+				<webwinkelkeur>
+					<file>magmodules_webwinkelkeur.xml</file>
+				</webwinkelkeur>
+			</updates>
+		</layout>
+        <translate>
+            <modules>
+                <magmodules_webwinkelkeur>
+                    <files>
+                        <default>Magmodules_Webwinkelkeur.csv</default>
+                    </files>
+                </magmodules_webwinkelkeur>
+            </modules>
+        </translate>		
+	</frontend>
+	<adminhtml>
+		<layout>
+			<updates>
+				<magmodules_webwinkelkeur>
+					<file>magmodules_webwinkelkeur.xml</file>
+				</magmodules_webwinkelkeur>
+			</updates>
+		</layout>
+        <translate>
+            <modules>
+                <magmodules_webwinkelkeur>
+                    <files>
+                        <default>Magmodules_Webwinkelkeur.csv</default>
+                    </files>
+                </magmodules_webwinkelkeur>
+            </modules>
+        </translate>
+    </adminhtml>
+	 <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <magmodules_webwinkelkeur after="Mage_Adminhtml">Magmodules_Webwinkelkeur_Adminhtml</magmodules_webwinkelkeur>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <crontab>
+        <jobs>
+			<magmodules_webwinkelkeur_stats>
+                <schedule><config_path>webwinkelkeur/reviews/cron_stats</config_path></schedule>
+                <run><model>webwinkelkeur/observer::processStats</model></run>
+			</magmodules_webwinkelkeur_stats>
+			<magmodules_webwinkelkeur_reviews>
+                <schedule><config_path>webwinkelkeur/reviews/cron_reviews</config_path></schedule>
+                <run><model>webwinkelkeur/observer::processReviews</model></run>
+			</magmodules_webwinkelkeur_reviews>
+			<magmodules_webwinkelkeur_reviewhistory>
+                <schedule><config_path>webwinkelkeur/reviews/cron_all</config_path></schedule>
+                <run><model>webwinkelkeur/observer::processHistory</model></run>
+			</magmodules_webwinkelkeur_reviewhistory>
+			<magmodules_webwinkelkeur_cleanlog>
+                <schedule><cron_expr>0 02 * * *</cron_expr></schedule>
+                <run><model>webwinkelkeur/observer::cleanLog</model></run>
+			</magmodules_webwinkelkeur_cleanlog>
+        </jobs>
+    </crontab>
+	<default>
+		<webwinkelkeur>
+			<general>
+				<enabled>0</enabled>
+			</general>
+			<reviews>
+				<cron>0</cron>
+				<cron_stats>*/15 * * * *</cron_stats>
+				<cron_reviews>0 */2 * * *</cron_reviews>
+				<cron_all>0 02 0 * *</cron_all>		
+			</reviews>	
+			<sidebar>
+				<left>0</left>
+				<left_qty>3</left_qty>
+				<left_lenght>150</left_lenght>
+				<left_link>external</left_link>
+				<right>0</right>
+				<right_qty>3</right_qty>
+				<right_lenght>150</right_lenght>
+				<right_link>external</right_link>
+			</sidebar>		
+			<snippets>
+				<sidebar>1</sidebar>
+			</snippets>			
+			<overview>
+				<enabled>1</enabled>
+				<enable_paging>1</enable_paging>
+				<paging_settings>10,20,30</paging_settings>
+				<meta_title>WebwinkelKeur Reviews</meta_title>
+				<meta_description>WebwinkelKeur Reviews overview page</meta_description>
+				<meta_keywords>reviews, webwinkelkeur</meta_keywords>
+			</overview>
+			<invitation>
+				<enabled>0</enabled>
+				<status>complete</status>
+				<delay>5</delay>
+				<backlog>20</backlog>										
+			</invitation>		
+			<frontend>
+				<enabled>0</enabled>
+				<tooltip>0</tooltip>
+				<sidebar_position>left</sidebar_position>
+				<sidebar_height>120</sidebar_height>
+			</frontend>
+			<log>
+				<enabled>1</enabled>
+				<clean>1</clean>
+				<clean_days>14</clean_days>
+			</log>			
+		</webwinkelkeur>
+	</default>
+</config>
